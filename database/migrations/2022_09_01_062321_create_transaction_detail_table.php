@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transaction_detail ', function (Blueprint $table) {
+        Schema::create('transaction_detail', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('transaction_id');
             $table->unsignedInteger('product_id');

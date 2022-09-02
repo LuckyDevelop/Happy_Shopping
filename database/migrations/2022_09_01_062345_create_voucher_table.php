@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('voucher ', function (Blueprint $table) {
-            $table->id();
+        Schema::create('voucher', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('code',50);
             $table->tinyInteger('type')->default(1);
             $table->decimal('disc_value',18,2);

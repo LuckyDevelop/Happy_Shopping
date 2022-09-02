@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transaction ', function (Blueprint $table) {
-            $table->id();
+        Schema::create('transaction', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('transaction_id',50);
             $table->string('customer_name',200);
             $table->string('customer_email',100);

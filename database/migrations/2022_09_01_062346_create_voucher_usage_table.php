@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('voucher_usage ', function (Blueprint $table) {
+        Schema::create('voucher_usage', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('transaction_id');
             $table->unsignedInteger('voucher_id');
+            $table->decimal('discounted_value', 18, 2);
             $table->timestamps();
-
             $table->foreign('transaction_id')->references('id')->on('transaction');
             $table->foreign('voucher_id')->references('id')->on('voucher');
         });
