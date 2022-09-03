@@ -13,7 +13,28 @@ class AuthController extends Controller
         if(Auth::check()){
             return redirect('dashboard');
         } else {
-            return view('login');
+            return view('sign-in');
         }
+    }
+
+    public function processLogin(Request $request) {
+        $credentials = $request->only('username', 'password');
+        if (Auth::attempt($credentials)) {
+			$message = [
+                'status' => true,
+                'success' => 'Login Successful',200
+            ];
+        } else {
+			$message = [
+                'status' => false,
+                'error' => 'Email tidak sesuai / Password tidak sesuai',403
+            ];
+        }
+        return response()->json($message);
+    }
+
+    public function processLogout() {
+        Auth::logout();
+        return redirect('login');
     }
 }
