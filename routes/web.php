@@ -3,9 +3,11 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,5 +42,22 @@ Route::namespace('admin')->middleware('auth')->group(function(){
 
     Route::prefix('/product')->group(function () {
         Route::get('/', [ProductController::class, 'view'])->name('product');
+        Route::get('/edit/{id}', [ProductController::class, 'editData'])->name('product_edit');
+        Route::post('/add', [ProductController::class, 'addData'])->name('product_add_post');
+        Route::patch('/edit', [ProductController::class, 'editPatch'])->name('product_edit_post');
+        Route::delete('/delete/{id}', [ProductController::class, 'deleteData'])->name('product_delete');
+    });
+
+    Route::prefix('/product-category')->group(function () {
+        Route::get('/', [CategoryController::class, 'view'])->name('category');
+        Route::get('/edit/{id}', [CategoryController::class, 'editData'])->name('category_edit');
+        Route::get('/auto', [CategoryController::class, 'auto'])->name('auto');
+        Route::post('/add', [CategoryController::class, 'addData'])->name('category_add_post');
+        Route::patch('/edit', [CategoryController::class, 'editPatch'])->name('category_edit_post');
+        Route::delete('/delete/{id}', [CategoryController::class, 'deleteData'])->name('category_delete');
+    });
+
+    Route::prefix('/transaction')->group(function () {
+        Route::get('/', [TransactionController::class, 'view'])->name('transaction');
     });
 });

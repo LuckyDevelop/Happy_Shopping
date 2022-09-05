@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\AdminRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Repository\SignUpRepository;
 
 class RegisterController extends Controller
@@ -16,7 +16,7 @@ class RegisterController extends Controller
         return view('sign-up');
     }
 
-    public function register(AdminRequest $request) {
+    public function register(RegisterRequest $request) {
         DB::beginTransaction();
         try {
             $this->admin->addData();

@@ -4,35 +4,43 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\ProductRequest;
-use App\Models\ProductModel;
-use App\Repository\ProductRepository;
+use App\Http\Requests\CategoryRequest;
+use App\Models\ProductCategoryModel;
+use App\Repository\ProductCategoryRepository;
 
-class ProductController extends Controller
+class CategoryController extends Controller
 {
     function __construct()
     {
-        $this->product = new ProductRepository;
+        $this->category = new ProductCategoryRepository;
     }
-
 
     function view()
     {
-        $data['product'] = $this->product->getData();
-        $content = view('product.product', $data);
+        $data['category'] = $this->category->getData();
+        $content = view('category.category', $data);
         return view('main', ['content' => $content]);
     }
 
-    function editData(Request $request, $id)
+    function auto(Request $request)
     {
-        $data['product'] = $this->product->getSingleData($id);
-        return view('product.modal.edit', $data);
+        $val = $request->q;
+        $data = $this->category->getSearchCategory($val);
+        $prod = [];
+        foreach ($data as $key => $value) {
+            $temp = new \stdClass();
+            $temp->id = $value->id;
+            $temp->name = $value->category;
+            $prod[] = $temp;
+        }
+
+        return $prod;
     }
 
-    function addData(ProductRequest $request) {
+    function addData(CategoryRequest $request) {
         DB::beginTransaction();
         try {
-            $this->product->addData();
+            $this->category->addData();
             DB::commit();
             $message = [
                 'status' => true,
@@ -47,11 +55,17 @@ class ProductController extends Controller
         return response()->json($message);
     }
 
+    function editData(Request $request, $id)
+    {
+        $data['category'] = $this->category->getSingleData($id);
+        return view('category.modal.edit', $data);
+    }
+
     function editPatch(Request $request)
     {
         DB::beginTransaction();
         try {
-            $this->product->editData();
+            $this->category->editData();
             DB::commit();
             $message = [
                 'status' => true,
@@ -67,6 +81,6 @@ class ProductController extends Controller
     }
 
     function deleteData($id) {
-        ProductModel::find($id)->delete();
+        ProductCategoryModel::find($id)->delete();
     }
 }

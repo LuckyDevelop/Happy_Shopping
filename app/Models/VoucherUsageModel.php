@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class VoucherUsageModel extends Model
 {
     use HasFactory;
+    protected $table = 'voucher_usage';
+    protected $guarded = [];
 }
