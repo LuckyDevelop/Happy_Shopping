@@ -18,7 +18,7 @@ class CategoryController extends Controller
     function view()
     {
         $data['category'] = $this->category->getData();
-        $content = view('category.category', $data);
+        $content = view('category.index', $data);
         return view('main', ['content' => $content]);
     }
 

@@ -19,7 +19,7 @@ class ProductController extends Controller
     function view()
     {
         $data['product'] = $this->product->getData();
-        $content = view('product.product', $data);
+        $content = view('product.index', $data);
         return view('main', ['content' => $content]);
     }
 

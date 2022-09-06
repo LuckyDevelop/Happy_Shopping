@@ -32,7 +32,7 @@
     $(('#formEdit')).submit(function(e) {
         e.preventDefault();
         $.ajax({
-            url: `{{ route('category_edit_post') }}`,
+            url: `{{ route('category_edit_patch') }}`,
             type: "PATCH",
             data: $('#formEdit').serialize(),
             success: function(res) {

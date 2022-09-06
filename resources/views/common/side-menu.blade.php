@@ -33,6 +33,11 @@
         </div>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('voucher') }}">
+            <i class="fas fa-fw fa-tag"></i>
+            <span>Voucher</span></a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('transaction') }}">
             <i class="fas fa-fw fa-money-bill"></i>
             <span>Transaksi</span></a>

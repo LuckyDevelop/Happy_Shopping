@@ -19,6 +19,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control form-control-user" id="product_name"
                             name="product_name" placeholder="Nama Produk" value="{{ $product->name }}">
+                        <input type="hidden" name="id" value="{{ $product->id }}">
                     </div>
 
                     <h6 class="font-weight-bold mt-3">Harga Jual<span class="text-danger">*</span></h6>
@@ -34,41 +35,83 @@
                     </div>
                     <div class="col mb-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="1" id="new_product"
-                                name="new_product" checked>
-                            <label class="form-check-label" for="new_product">
-                                New Product
-                            </label>
+                            @if ($product->new_product == 1)
+                                <input class="form-check-input" type="checkbox" value="1" id="new_product"
+                                    name="new_product" checked>
+                                <label class="form-check-label" for="new_product">
+                                    New Product
+                                </label>
+                            @else
+                                <input class="form-check-input" type="checkbox" value="1" id="new_product"
+                                    name="new_product">
+                                <label class="form-check-label" for="new_product">
+                                    New Product
+                                </label>
+                            @endif
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="1" id="best_seller"
-                                name="best_seller">
-                            <label class="form-check-label" for="best_seller">
-                                Best Seller
-                            </label>
+                            @if ($product->best_seller == 1)
+                                <input class="form-check-input" type="checkbox" value="1" id="best_seller"
+                                    name="best_seller" checked>
+                                <label class="form-check-label" for="best_seller">
+                                    Best Seller
+                                </label>
+                            @else
+                                <input class="form-check-input" type="checkbox" value="1" id="best_seller"
+                                    name="best_seller">
+                                <label class="form-check-label" for="best_seller">
+                                    Best Seller
+                                </label>
+                            @endif
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="1" id="featured"
-                                name="featured">
-                            <label class="form-check-label" for="featured">
-                                Featured
-                            </label>
+                            @if ($product->featured == 1)
+                                <input class="form-check-input" type="checkbox" value="1" id="featured"
+                                    name="featured" checked>
+                                <label class="form-check-label" for="featured">
+                                    Featured
+                                </label>
+                            @else
+                                <input class="form-check-input" type="checkbox" value="1" id="featured"
+                                    name="featured">
+                                <label class="form-check-label" for="featured">
+                                    Featured
+                                </label>
+                            @endif
                         </div>
                     </div>
                     <div class="col-sm mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="status" name="status" value="1"
-                                checked>
-                            <label class="form-check-label" for="status">
-                                Aktif
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="status" name="status" value="0">
-                            <label class="form-check-label" for="status">
-                                Tidak aktif
-                            </label>
-                        </div>
+                        @if ($product->status == 1)
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="status" name="status"
+                                    value="1" checked>
+                                <label class="form-check-label" for="status">
+                                    Aktif
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="status" name="status"
+                                    value="0">
+                                <label class="form-check-label" for="status">
+                                    Tidak aktif
+                                </label>
+                            </div>
+                        @else
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="status" name="status"
+                                    value="1">
+                                <label class="form-check-label" for="status">
+                                    Aktif
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="status" name="status"
+                                    value="0" checked>
+                                <label class="form-check-label" for="status">
+                                    Tidak aktif
+                                </label>
+                            </div>
+                        @endif
                     </div>
 
                     <h6 class="font-weight-bold">Short Deskripsi</h6>
@@ -83,7 +126,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>
@@ -93,11 +136,11 @@
     $(('#formEdit')).submit(function(e) {
         e.preventDefault();
         $.ajax({
-            url: "{{ route('product_add_post') }}",
-            type: "POST",
+            url: "{{ route('product_edit_patch') }}",
+            type: "PATCH",
             data: $('#formEdit').serialize(),
             success: function(res) {
-                toastr['success']("Produk Berhasil ditambahkan!");
+                toastr['success']("Produk Berhasil diubah!");
                 window.setTimeout(function() {
                     window.location.reload();
                 }, 1000);
