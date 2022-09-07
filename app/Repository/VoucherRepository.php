@@ -22,9 +22,30 @@ class VoucherRepository
 }
 
     function addData() {
+            $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            srand((double)microtime()*1000000);
+            $i = 0;
+            $pass = '' ;
+
+            while ($i <= 5) {
+                $num = rand() % 33;
+                $tmp = substr($chars, $num, 1);
+                $pass = $pass . $tmp;
+                $i++;
+            }
+            if(request('flat_disc') != null) {
+                $disc_value = request('flat_disc');
+            }
+            if(request('percent_disc') != null) {
+                $disc_value = request('percent_disc');
+            }
         VoucherModel::create([
-            'category' => request('category'),
-            'description' => request('description'),
+            'code' => $pass,
+            'type' => request('type'),
+            'disc_value' => $disc_value,
+            'start_date' => request('start_date'),
+            'end_date' => request('end_date'),
+            'status' => request('status'),
         ]);
     }
 

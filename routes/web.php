@@ -65,5 +65,8 @@ Route::namespace('admin')->middleware('auth')->group(function(){
     Route::prefix('/voucher')->group(function () {
         Route::get('/', [VoucherController::class, 'view'])->name('voucher');
         Route::get('/data', [VoucherController::class, 'data'])->name('voucher_data');
+        Route::get('/data/usage', [VoucherController::class, 'dataUsage'])->name('voucher_data_usage');
+        Route::get('/usage', [VoucherController::class, 'viewUsage'])->name('voucher_usage');
+        Route::post('/add', [VoucherController::class, 'addData'])->name('voucher_add_post');
     });
 });

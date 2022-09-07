@@ -2,7 +2,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 row">
         <div class="col-sm">
-            <h6 class="m-0 font-weight-bold text-primary">Voucher</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Riwayat Transaksi Voucher</h6>
         </div>
     </div>
     <div class="flex-grow-1 mr-3">
@@ -23,7 +23,7 @@
                             placeholder="Cari Kode Voucher" />
                     </div>
                 </div>
-                {{-- <div class="col-sm-2">
+                <div class="col-sm-2">
                     <p class="m-0">Start Date</p>
                     <input type="date" onchange="searchData()" style="width: 200px" name="start_date" id="start_date"
                         value="{{ Carbon::now()->format('Y-m-d') }}" class="form-control  w-100">
@@ -32,19 +32,9 @@
                     <p class="m-0">End Date</p>
                     <input type="date" onchange="searchData()" style="width: 200px" name="end_date" id="end_date"
                         value="{{ Carbon::now()->format('Y-m-d') }}" class="form-control w-100">
-                </div> --}}
-                <div class="col-sm-2">
-                    <p class="m-0">Status</p>
-                    <select onchange="setStatus()" id="status" name="status" class="form-control">
-                        <option value="1">Aktif</option>
-                        <option value="0">Arsip</option>
-                    </select>
                 </div>
                 <div class="col-sm mt-4 text-right">
-                    <a href="javascript:void(0)" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
-                        <h6 class="m-0 font-weight-bold text-white">Tambah Voucher</h6>
-                    </a>
+                    <a href="" class="btn btn-primary">Tambah Transaksi</a>
                 </div>
             </div>
         </form>
@@ -52,10 +42,6 @@
     <div class="card-body" id="data">
 
     </div>
-</div>
-@include('voucher.modal.add')
-<div id="modal-container">
-
 </div>
 <script>
     $(document).ready(function() {
@@ -70,7 +56,7 @@
     function getData() {
         let formData = $('#formFilter').serialize();
         $.ajax({
-            url: `voucher/data?page=` + page,
+            url: `voucher/data/usage?page=` + page,
             method: 'GET',
             data: formData,
             success: function(data) {
@@ -92,7 +78,7 @@
         }
 
         $.ajax({
-            url: `voucher/data`,
+            url: `voucher/data/usage`,
             method: 'GET',
             data: formData,
             beforeSend: function(e) {
@@ -107,68 +93,5 @@
                 toastr['error']('Something Error');
             }
         })
-    }
-
-    function Edit(id) {
-        $.ajax({
-            url: ` / product - category / edit / $ {
-                        id
-                    }
-                    `,
-            method: 'GET',
-            data: $('#formEdit').serialize(),
-            beforeSend: function(e) {
-                $('#overlay').css("display", "block");
-            },
-            success: function(data) {
-                $('#modal-container').html(data);
-                $('#modal-edit').modal("show");
-            },
-            error: function(error) {
-                $('#overlay').css("display", "none");
-                toastr['error']('Something Error');
-            }
-        })
-    }
-
-    function deleteData(id) {
-        swal({
-                title: "Apakah Anda Yakin ingin menghapus data ini??",
-                text: "",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                    $.ajax({
-                        url: ` / product - category / delete / $ {
-                        id
-                    }
-                    `,
-                        method: 'DELETE',
-                        data: {
-                            'id': id,
-                            '_token': '{{ csrf_token() }}',
-                        },
-                        success: function(res, data) {
-                            if (res.status = true) {
-                                swal("Sukses", "Berhasil dihapus", "success");
-                                window.setTimeout(function() {
-                                    window.location.reload();
-                                }, 1000);
-                            } else {
-                                toastr['error'](res.error);
-                            }
-                        },
-                        error: function(error) {
-                            toastr['error']('Something Error');
-                        }
-                    })
-                } else {
-                    swal("Batal menghapus");
-                }
-            });
     }
 </script>
