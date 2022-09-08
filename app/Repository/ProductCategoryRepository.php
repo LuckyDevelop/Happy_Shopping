@@ -12,9 +12,9 @@ class ProductCategoryRepository
     }
 
     function getSearchCategory($val) {
-        $data = ProductCategoryModel::where('category', 'LIKE', "$val%")->take(20)->get();
+        $data = ProductCategoryModel::where('category', 'LIKE', "%$val%")->take(20)->get();
         return $data;
-}
+    }
 
     function addData() {
         ProductCategoryModel::create([
@@ -33,5 +33,9 @@ class ProductCategoryRepository
             'category' => request('category'),
             'description' => request('description'),
         ]);
+    }
+
+    function deleteData($id) {
+        ProductCategoryModel::find($id)->delete();
     }
 }

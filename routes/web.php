@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\VoucherController;
@@ -44,6 +45,7 @@ Route::namespace('admin')->middleware('auth')->group(function(){
     Route::prefix('/product')->group(function () {
         Route::get('/', [ProductController::class, 'view'])->name('product');
         Route::get('/edit/{id}', [ProductController::class, 'editData'])->name('product_edit');
+        Route::get('/auto', [ProductController::class, 'auto'])->name('product_auto');
         Route::post('/add', [ProductController::class, 'addData'])->name('product_add_post');
         Route::patch('/edit', [ProductController::class, 'editPatch'])->name('product_edit_patch');
         Route::delete('/delete/{id}', [ProductController::class, 'deleteData'])->name('product_delete');
@@ -62,11 +64,20 @@ Route::namespace('admin')->middleware('auth')->group(function(){
         Route::get('/', [TransactionController::class, 'view'])->name('transaction');
     });
 
+    Route::prefix('/history')->group(function () {
+        Route::get('/', [HistoryController::class, 'viewTransaction'])->name('transaction-detail');
+        Route::get('/data', [HistoryController::class, 'dataTransaction'])->name('transaction-detail_data');
+        Route::get('/usage', [HistoryController::class, 'viewUsage'])->name('voucher-usage');
+        Route::get('/data/usage', [HistoryController::class, 'dataUsage'])->name('voucher_data_usage');
+    });
+
     Route::prefix('/voucher')->group(function () {
         Route::get('/', [VoucherController::class, 'view'])->name('voucher');
         Route::get('/data', [VoucherController::class, 'data'])->name('voucher_data');
-        Route::get('/data/usage', [VoucherController::class, 'dataUsage'])->name('voucher_data_usage');
-        Route::get('/usage', [VoucherController::class, 'viewUsage'])->name('voucher_usage');
+        Route::get('/auto', [VoucherController::class, 'auto'])->name('voucher_auto');
+        Route::get('/edit/{id}', [VoucherController::class, 'editData'])->name('voucher_edit');
         Route::post('/add', [VoucherController::class, 'addData'])->name('voucher_add_post');
+        Route::patch('/edit', [VoucherController::class, 'editPatch'])->name('voucher_edit_patch');
+        Route::delete('/delete/{id}', [VoucherController::class, 'deleteData'])->name('voucher_delete');
     });
 });

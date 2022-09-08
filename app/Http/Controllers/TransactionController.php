@@ -8,7 +8,7 @@ class TransactionController extends Controller
 {
     function view()
     {
-        $content = view('transaction');
+        $content = view('transaction.view');
         return view('main', ['content' => $content]);
     }
 }

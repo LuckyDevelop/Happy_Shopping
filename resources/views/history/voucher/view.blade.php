@@ -8,7 +8,7 @@
     <div class="flex-grow-1 mr-3">
         <form id="formFilter" onsubmit="return false">
             <div class="row ml-3">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="input-group w-10 mt-4">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">
@@ -20,10 +20,10 @@
                             </span>
                         </div>
                         <input type="text" onchange="searchData()" class="form-control" name="search"
-                            placeholder="Cari Kode Voucher" />
+                            placeholder="Cari Kode Voucher atau Kode Transaksi" />
                     </div>
                 </div>
-                <div class="col-sm-2">
+                {{-- <div class="col-sm-2">
                     <p class="m-0">Start Date</p>
                     <input type="date" onchange="searchData()" style="width: 200px" name="start_date" id="start_date"
                         value="{{ Carbon::now()->format('Y-m-d') }}" class="form-control  w-100">
@@ -32,10 +32,10 @@
                     <p class="m-0">End Date</p>
                     <input type="date" onchange="searchData()" style="width: 200px" name="end_date" id="end_date"
                         value="{{ Carbon::now()->format('Y-m-d') }}" class="form-control w-100">
-                </div>
-                <div class="col-sm mt-4 text-right">
+                </div> --}}
+                {{-- <div class="col-sm mt-4 text-right">
                     <a href="" class="btn btn-primary">Tambah Transaksi</a>
-                </div>
+                </div> --}}
             </div>
         </form>
     </div>
@@ -56,7 +56,7 @@
     function getData() {
         let formData = $('#formFilter').serialize();
         $.ajax({
-            url: `voucher/data/usage?page=` + page,
+            url: `data/usage?page=` + page,
             method: 'GET',
             data: formData,
             success: function(data) {
@@ -78,7 +78,7 @@
         }
 
         $.ajax({
-            url: `voucher/data/usage`,
+            url: `data/usage`,
             method: 'GET',
             data: formData,
             beforeSend: function(e) {

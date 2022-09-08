@@ -23,6 +23,22 @@ class ProductController extends Controller
         return view('main', ['content' => $content]);
     }
 
+    function auto(Request $request)
+    {
+        $val = $request->q;
+        $data = $this->product->getSearchProduct($val);
+        $prod = [];
+        foreach ($data as $key => $value) {
+            $temp = new \stdClass();
+            $temp->id = $value->id;
+            $temp->name = $value->name;
+            $temp->price = number_format($value->price,0,'.','.');
+            $prod[] = $temp;
+        }
+
+        return $prod;
+    }
+
     function editData(Request $request, $id)
     {
         $data['product'] = $this->product->getSingleData($id);

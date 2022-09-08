@@ -12,6 +12,11 @@ class ProductRepository
         return $data;
     }
 
+    function getSearchProduct($val) {
+        $data = ProductModel::where('name', 'LIKE', "%$val%")->where('status', 1)->take(20)->get();
+        return $data;
+    }
+
     function addData() {
 
         $category = ProductCategoryModel::find(request('category'));
@@ -47,7 +52,7 @@ class ProductRepository
             'code' => $new_number,
             'product_category_id' => request('category'),
             'price' => request('price'),
-            'purchase_price' => request('price'),
+            'purchase_price' => request('purchase_price'),
             'short_description' => request('short_description'),
             'description' => request('description'),
             'status' => request('status'),

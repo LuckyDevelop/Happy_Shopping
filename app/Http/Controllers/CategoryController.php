@@ -81,6 +81,20 @@ class CategoryController extends Controller
     }
 
     function deleteData($id) {
-        ProductCategoryModel::find($id)->delete();
+        DB::beginTransaction();
+        try {
+            $this->category->deleteData($id);
+            DB::commit();
+            $message = [
+                'status' => true,
+            ];
+        } catch (\Exception $exception) {
+            DB::rollback();
+            $message = [
+                'status' => false,
+                'error' => $exception->getMessage(),
+            ];
+        }
+        return response()->json($message);
     }
 }

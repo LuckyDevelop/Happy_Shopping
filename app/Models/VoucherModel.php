@@ -10,4 +10,8 @@ class VoucherModel extends Model
     use HasFactory;
     protected $table = 'voucher';
     protected $guarded = [];
+
+    function VoucherUsage() {
+        return $this->hasMany(VoucherUsageModel::class, 'voucher_id', 'id');
+    }
 }

@@ -33,23 +33,28 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-            aria-expanded="true" aria-controls="collapseThree">
-            <i class="fas fa-fw fa-boxes"></i>
-            <span>Voucher</span>
-        </a>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Menu Voucher :</h6>
-                <a class="collapse-item" href="{{ route('voucher') }}">Voucher</a>
-                <a class="collapse-item" href="{{ route('voucher_usage') }}">Riwayat Transaksi</a>
-            </div>
-        </div>
+        <a class="nav-link" href="{{ route('voucher') }}">
+            <i class="fas fa-fw fa-tag"></i>
+            <span>Voucher</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('transaction') }}">
             <i class="fas fa-fw fa-money-bill"></i>
             <span>Transaksi</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+            aria-expanded="true" aria-controls="collapseThree">
+            <i class="fas fa-fw fa-clock"></i>
+            <span>Riwayat Transaksi</span>
+        </a>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Riwayat :</h6>
+                <a class="collapse-item" href="{{ route('transaction-detail') }}">Transaksi</a>
+                <a class="collapse-item" href="{{ route('voucher-usage') }}">Transaksi Voucher</a>
+            </div>
+        </div>
     </li>
 </ul>
 <!-- End of Sidebar -->

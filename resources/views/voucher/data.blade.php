@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th>Kode Voucher</th>
-                <th>Type</th>
+                <th>Tipe Diskon</th>
                 <th>Total Diskon</th>
                 <th>Masa Berlaku</th>
                 <th>Status</th>
@@ -19,16 +19,41 @@
             @foreach ($voucher as $v)
                 <tr>
                     <td>{{ $v->code }}</td>
-                    <td>
-                        @if ($v->type == 1)
+                    @if ($v->type == 1)
+                        <td>
                             Flat Diskon
-                        @elseif($v->type == 2)
-                            Persen Diskon
-                        @endif
-                    </td>
-                    <td>Rp {{ number_format($v->disc_value, 0, '.', '.') }}</td>
+                        </td>
+                        <td>
+                            Rp {{ number_format($v->disc_value, 0, '.', '.') }}
+                        </td>
+                    @elseif($v->type == 2)
+                        <td>
+                            (%)
+                            Persen
+                        </td>
+                        <td>
+                            {{ round($v->disc_value) }}%
+                        </td>
+                    @endif
+                    @php
+                        $date1 = new DateTime($v->start_date);
+                        $date2 = new DateTime($v->end_date);
+                        $interval = $date1->diff($date2);
+
+                    @endphp
                     <td>
-                        {{ $v->start_date }} - {{ $v->end_date }}
+                        {{ Carbon::parse($v->start_date)->format('d F Y') }} -
+                        {{ Carbon::parse($v->end_date)->format('d F Y') }}
+                        @if ($interval->d != 0)
+                            ( {{ $interval->d }} Hari
+                            @if ($interval->m != 0)
+                                {{ $interval->m }} Bulan
+                                @if ($interval->y != 0)
+                                    {{ $interval->y }} Tahun
+                                @endif
+                            @endif
+                            )
+                        @endif
                     </td>
                     <td>
                         @if ($v->status == 1)
@@ -48,3 +73,4 @@
         </tbody>
     </table>
 </div>
+{{ $voucher->links() }}

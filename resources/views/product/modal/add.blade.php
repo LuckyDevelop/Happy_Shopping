@@ -22,16 +22,17 @@
                             name="product_name" placeholder="Nama Produk">
                     </div>
 
-                    <h6 class="font-weight-bold mt-3">Harga Jual<span class="text-danger">*</span></h6>
-                    <div class="form-group">
-                        <input type="text" class="form-control form-control-user" id="price" name="price">
-                    </div>
-
                     <h6 class="font-weight-bold mt-3">Harga Beli<span class="text-danger">*</span></h6>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-user" id="purchase_price"
                             name="purchase_price">
                     </div>
+
+                    <h6 class="font-weight-bold mt-3">Harga Jual<span class="text-danger">*</span></h6>
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-user" id="price" name="price">
+                    </div>
+
                     <div class="col mb-3">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" value="1" id="new_product"

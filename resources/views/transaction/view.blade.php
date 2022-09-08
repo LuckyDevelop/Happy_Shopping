@@ -20,30 +20,26 @@
                             </span>
                         </div>
                         <input type="text" onchange="searchData()" class="form-control" name="search"
-                            placeholder="Cari Kode Voucher" />
+                            placeholder="Cari Kode Transaksi" />
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <p class="m-0">Start Date</p>
-                    <input type="date" onchange="searchData()" style="width: 200px" name="start_date" id="start_date"
+                    <p class="m-0">Tanggal Transaksi</p>
+                    <input type="date" onchange="searchData()" style="width: 200px" name="date" id="date"
                         value="{{ Carbon::now()->format('Y-m-d') }}" class="form-control  w-100">
-                </div>
-                <div class="col-sm-2">
-                    <p class="m-0">End Date</p>
-                    <input type="date" onchange="searchData()" style="width: 200px" name="end_date" id="end_date"
-                        value="{{ Carbon::now()->format('Y-m-d') }}" class="form-control w-100">
                 </div>
                 <div class="col-sm-2">
                     <p class="m-0">Status</p>
                     <select onchange="searchData()" id="status" name="status" class="form-control">
-                        <option value="1">Aktif</option>
-                        <option value="0">Arsip</option>
+                        <option value="0">Cancelled</option>
+                        <option value="1" selected>Pending</option>
+                        <option value="2">Done/Paid</option>
                     </select>
                 </div>
                 <div class="col-sm mt-4 text-right">
                     <a href="javascript:void(0)" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
-                        <h6 class="m-0 font-weight-bold text-white">Tambah Voucher</h6>
+                        data-bs-target="#addModal">
+                        <h6 class="m-0 font-weight-bold text-white">Tambah Transaksi</h6>
                     </a>
                 </div>
             </div>
@@ -53,7 +49,7 @@
 
     </div>
 </div>
-@include('voucher.modal.add')
+@include('transaction.modal.add')
 <div id="modal-container">
 
 </div>

@@ -6,14 +6,14 @@ use App\Models\VoucherUsageModel;
 
 class VoucherUsageRepository
 {
-    function getData($n, $status) {
-        $data = VoucherUsageModel::where('status', $status)->paginate($n);
+    function getData($n) {
+        $data = VoucherUsageModel::paginate($n);
         return $data;
     }
 
-    function getDataWithSearch($n, $status, $search) {
-        $data = VoucherUsageModel::where('status', $status)->where('code', 'LIKE', "%$search%");
-        return $data;
+    function getDataWithSearch($n, $search) {
+        $data = VoucherUsageModel::where('code', 'LIKE', "%$search%");
+        return $data->paginate($n);
     }
 
     function getSearchCategory($val) {

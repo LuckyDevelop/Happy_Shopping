@@ -6,20 +6,21 @@ use App\Models\VoucherModel;
 
 class VoucherRepository
 {
-    function getData($n, $status) {
-        $data = VoucherModel::where('status', $status)->paginate($n);
+    function getData($n, $status, $start, $end) {
+        $data = VoucherModel::where('status', $status)->whereDate('start_date', $start)->whereDate('end_date', $end)->paginate($n);
         return $data;
     }
 
-    function getDataWithSearch($n, $status, $search) {
-        $data = VoucherModel::where('status', $status)->where('code', 'LIKE', "%$search%");
-        return $data;
+    function getDataWithSearch($n, $status, $search, $start, $end) {
+        $data = VoucherModel::where('status', $status)->where('code', 'LIKE', "%$search%")->whereDate('start_date', $start)->whereDate('end_date', $end);
+        return $data->paginate($n);
     }
 
-    function getSearchCategory($val) {
-        $data = VoucherModel::where('category', 'LIKE', "$val%")->take(20)->get();
+    function getSearchVoucher($val) {
+        $now = date('Y-m-d');
+        $data = VoucherModel::where('code', 'LIKE', "%$val%")->where('start_date', '<=' , $now)->where('end_date', '>=', $now)->take(20)->get();
         return $data;
-}
+    }
 
     function addData() {
             $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -55,9 +56,26 @@ class VoucherRepository
     }
 
     function editData() {
+        if(request('type') == 1) {
+            if(request('flat_disc') != null) {
+                $disc_value = request('flat_disc');
+            }
+        }
+        if(request('type') == 2) {
+            if(request('percent_disc') != null) {
+                $disc_value = request('percent_disc');
+            }
+        }
         VoucherModel::find(request('id'))->update([
-            'category' => request('category'),
-            'description' => request('description'),
+            'type' => request('type'),
+            'disc_value' => $disc_value,
+            'start_date' => request('start_date'),
+            'end_date' => request('end_date'),
+            'status' => request('status'),
         ]);
+    }
+
+    function deleteData($id) {
+        VoucherModel::find($id)->delete();
     }
 }
