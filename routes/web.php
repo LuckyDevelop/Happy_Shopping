@@ -62,6 +62,7 @@ Route::namespace('admin')->middleware('auth')->group(function(){
 
     Route::prefix('/transaction')->group(function () {
         Route::get('/', [TransactionController::class, 'view'])->name('transaction');
+        Route::post('/add', [TransactionController::class, 'addData'])->name('transaction_add_post');
     });
 
     Route::prefix('/history')->group(function () {

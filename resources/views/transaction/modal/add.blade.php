@@ -63,7 +63,7 @@
                                 <h6 class="font-weight-bold mt-3">Jumlah Produk <span class="text-danger">*</span></h6>
                                 <div class="form-group">
                                     <input type="text" onkeyup="setSubTotal()" class="form-control form-control-user"
-                                        id="qty" name="qty" placeholder="Masukkan Jumlah Produk">
+                                        id="qty" name="qty" value="" placeholder="Masukkan Jumlah Produk">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -76,11 +76,11 @@
                                     <input type="hidden" id="disc_value" value="0">
                                 </div>
                                 <div class="col-sm-3 mt-4">
-                                    <a href="javascript:void(0)" class="btn btn-outline-primary form-control"
+                                    <a href="javascript:void(0)" class="btn btn-outline-primary form-control" id="apply"
                                         onclick="setVoucher()">Apply</a>
                                 </div>
                                 <div class="col-sm-3 mt-4">
-                                    <a href="javascript:void(0)" class="btn btn-outline-danger form-control"
+                                    <a href="javascript:void(0)" class="btn btn-outline-danger form-control" id="delete"
                                         onclick="deleteVoucher()">Delete</a>
                                 </div>
                             </div>
@@ -121,9 +121,9 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Tambah</button>
                 </div>
-                <input type="hidden" id="sub" value="0">
-                <input type="hidden" id="disc" value="0">
-                <input type="hidden" id="tot" value="0">
+                <input type="hidden" name="sub_total" id="sub" value="0">
+                <input type="hidden" name="discount" id="disc" value="0">
+                <input type="hidden" name="total" id="tot" value="0">
             </form>
         </div>
     </div>
@@ -168,7 +168,17 @@
         $("#voucher option[value!='']").remove();
     }
 
+    $(document).ready(function() {
+        $('#voucher').attr('disabled', true);
+    });
+
     function setSubTotal() {
+        if ($('#qty').val() != null || $('#qty').val() != 0) {
+            $('#voucher').attr('disabled', false);
+        }
+        if ($('#qty').val() == 0) {
+            $('#voucher').attr('disabled', true);
+        }
         $("#price").val(function(index, value) {
             return value
                 .replace(/^0+/, '')
@@ -189,19 +199,26 @@
         $('#total').html(output);
 
         $('#tot').val(sumtot);
+        $("#price").val(function(index, value) {
+            return value
+                .replace(/^0+/, '')
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        });
     }
 
     $(('#formAdd')).submit(function(e) {
+        // $(".submit").prop('disabled', true);
         e.preventDefault();
         $.ajax({
-            url: "{{ route('product_add_post') }}",
+            url: "{{ route('transaction_add_post') }}",
             type: "POST",
             data: $('#formAdd').serialize(),
             success: function(res) {
                 toastr['success']("Produk Berhasil ditambahkan!");
-                window.setTimeout(function() {
-                    window.location.reload();
-                }, 1000);
+                // window.setTimeout(function() {
+                //     window.location.reload();
+                // }, 1000);
             },
             error: function(res) {
                 // $(".submit").prop('disabled', false);
@@ -285,7 +302,11 @@
         $('#disc_value').val(repo.diskon);
         $('#type').val(repo.tipe);
         if (repo.name != undefined) {
-            return repo.name;
+            if (repo.tipe == 2) {
+                return repo.name + ' - ' + repo.sum + '%';
+            } else {
+                return repo.name + ' - ' + 'Rp' + repo.sum;
+            }
         } else {
             return repo.text;
         }

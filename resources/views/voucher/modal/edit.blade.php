@@ -126,6 +126,7 @@
     }
 
     $(('#formEdit')).submit(function(e) {
+        $(".submit").prop('disabled', true);
         e.preventDefault();
         $("#edit_flat_disc").val(function(index, value) {
             return value
@@ -139,12 +140,12 @@
             data: $('#formEdit').serialize(),
             success: function(res) {
                 toastr['success']("Voucher Berhasil diubah!");
-                // window.setTimeout(function() {
-                //     window.location.reload();
-                // }, 1000);
+                window.setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
             },
             error: function(res) {
-                // $(".submit").prop('disabled', false);
+                $(".submit").prop('disabled', false);
                 console.log(res);
                 if (res.status != 422)
                     toastr['error']("Something went wrong");
