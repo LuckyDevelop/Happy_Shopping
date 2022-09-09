@@ -27,7 +27,7 @@
                         @endif
                     </td>
                     <td>
-                        {{ number_format($v->discounted_value, 0, '.', '.') }}
+                        Rp {{ number_format($v->discounted_value, 0, '.', '.') }}
                     </td>
                     <td>
                         {{ Carbon::parse($v->created_at)->format('d F Y') }}

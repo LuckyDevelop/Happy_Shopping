@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('sub_total', 18, 2);
             $table->decimal('total', 18, 2);
             $table->decimal('total_purchase', 18, 2);
-            $table->text('additional_request');
+            $table->text('additional_request')->nullable();
             $table->string('payment_method',200);
             $table->tinyInteger('status')->default(2);
             $table->timestamps();

@@ -6,19 +6,25 @@ use App\Models\VoucherModel;
 
 class VoucherRepository
 {
-    function getData($n, $status, $start, $end) {
-        $data = VoucherModel::where('status', $status)->whereDate('start_date', $start)->whereDate('end_date', $end)->paginate($n);
-        return $data;
+    function getData($n, $status, $start=null, $end=null) {
+        $data = VoucherModel::where('status', $status);
+        if ($start != null && $end != null) {
+            $data->whereDate('start_date', $start)->whereDate('end_date', $end);
+        }
+        return $data->paginate($n);
     }
 
-    function getDataWithSearch($n, $status, $search, $start, $end) {
-        $data = VoucherModel::where('status', $status)->where('code', 'LIKE', "%$search%")->whereDate('start_date', $start)->whereDate('end_date', $end);
+    function getDataWithSearch($n, $status, $search, $start=null, $end=null) {
+        $data = VoucherModel::where('status', $status)->where('code', 'LIKE', "%$search%");
+        if($start != null & $end != null) {
+            $data->whereDate('start_date', $start)->whereDate('end_date', $end);
+        }
         return $data->paginate($n);
     }
 
     function getSearchVoucher($val) {
         $now = date('Y-m-d');
-        $data = VoucherModel::where('code', 'LIKE', "%$val%")->where('start_date', '<=' , $now)->where('end_date', '>=', $now)->take(20)->get();
+        $data = VoucherModel::where('code', 'LIKE', "%$val%")->where('start_date', '<=' , $now)->where('end_date', '>=', $now)->where('status', 1)->take(20)->get();
         return $data;
     }
 

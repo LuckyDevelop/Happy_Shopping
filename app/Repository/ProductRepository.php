@@ -7,9 +7,14 @@ use App\Models\ProductModel;
 
 class ProductRepository
 {
-    function getData() {
-        $data = ProductModel::with('ProductCategory')->where('status',1)->get();
+    function getData($n, $status) {
+        $data = ProductModel::with('ProductCategory')->where('status', $status)->paginate($n);
         return $data;
+    }
+
+    function getDataWithSearch($n, $status, $search) {
+        $data = ProductModel::where('status', $status)->where('code', 'LIKE', "%$search%")->orWhere('name', 'LIKE' , "%$search%");
+        return $data->paginate($n);
     }
 
     function getSearchProduct($val) {

@@ -56,7 +56,7 @@
     function getData() {
         let formData = $('#formFilter').serialize();
         $.ajax({
-            url: `data/usage?page=` + page,
+            url: `usage/data?page=` + page,
             method: 'GET',
             data: formData,
             success: function(data) {
@@ -78,7 +78,7 @@
         }
 
         $.ajax({
-            url: `data/usage`,
+            url: `usage/data`,
             method: 'GET',
             data: formData,
             beforeSend: function(e) {

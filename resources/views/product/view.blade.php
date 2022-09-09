@@ -2,13 +2,13 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 row">
         <div class="col-sm">
-            <h6 class="m-0 font-weight-bold text-primary">Transaksi</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Produk</h6>
         </div>
     </div>
     <div class="flex-grow-1 mr-3">
         <form id="formFilter" onsubmit="return false">
             <div class="row ml-3">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="input-group w-10 mt-4">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">
@@ -20,31 +20,20 @@
                             </span>
                         </div>
                         <input type="text" onchange="searchData()" class="form-control" name="search"
-                            placeholder="Cari Kode Transaksi, nama, atau email pelanggan" />
+                            placeholder="Cari Nama Produk atau Kode Produk" />
                     </div>
-                </div>
-                <div class="col-sm-2">
-                    <p class="m-0">Start Date</p>
-                    <input type="date" onchange="searchData()" style="width: 200px" name="start_date" id="start_date"
-                        value="" class="form-control  w-100">
-                </div>
-                <div class="col-sm-2">
-                    <p class="m-0">End Date</p>
-                    <input type="date" onchange="searchData()" style="width: 200px" name="end_date" id="end_date"
-                        value="" class="form-control w-100">
                 </div>
                 <div class="col-sm-2">
                     <p class="m-0">Status</p>
                     <select onchange="searchData()" id="status" name="status" class="form-control">
-                        <option value="0">Cancelled</option>
-                        <option value="1" selected>Pending</option>
-                        <option value="2">Done/Paid</option>
+                        <option value="0">Tidak Aktif</option>
+                        <option value="1" selected>Aktif</option>
                     </select>
                 </div>
                 <div class="col-sm mt-4 text-right">
                     <a href="javascript:void(0)" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#addModal">
-                        <h6 class="m-0 font-weight-bold text-white">Tambah Transaksi</h6>
+                        <h6 class="m-0 font-weight-bold text-white">Tambah Produk</h6>
                     </a>
                 </div>
             </div>
@@ -54,7 +43,7 @@
 
     </div>
 </div>
-@include('transaction.modal.add')
+@include('product.modal.add')
 <div id="modal-container">
 
 </div>
@@ -71,7 +60,7 @@
     function getData() {
         let formData = $('#formFilter').serialize();
         $.ajax({
-            url: `transaction/data?page=` + page,
+            url: `product/data?page=` + page,
             method: 'GET',
             data: formData,
             success: function(data) {
@@ -85,14 +74,10 @@
 
     function searchData() {
         let formData = $('#formFilter').serialize();
-        let start = $('#start_date').val();
-        let end = $('#end_date').val();
-        if (start > end) {
-            toastr['error']('End Date tidak boleh dibawah Start Date');
-        }
+        let date = $('#date').val();
 
         $.ajax({
-            url: `transaction/data`,
+            url: `product/data`,
             method: 'GET',
             data: formData,
             beforeSend: function(e) {
@@ -111,7 +96,7 @@
 
     function Edit(id) {
         $.ajax({
-            url: `/transaction/edit/${id}`,
+            url: `/product/edit/${id}`,
             method: 'GET',
             data: $('#formEdit').serialize(),
             beforeSend: function(e) {
@@ -119,7 +104,7 @@
             },
             success: function(data) {
                 $('#modal-container').html(data);
-                $('#editModal').modal("show");
+                $('#modal-edit').modal("show");
             },
             error: function(error) {
                 $('#overlay').css("display", "none");
@@ -130,7 +115,7 @@
 
     function deleteData(id) {
         swal({
-                title: "Apakah Anda Yakin ingin menghapus Voucher ini??",
+                title: "Apakah Anda Yakin ingin menghapus data ini??",
                 text: "",
                 icon: "warning",
                 buttons: true,
@@ -140,7 +125,7 @@
                 if (willDelete) {
                     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: `/voucher/delete/${id}`,
+                        url: `/product/delete/${id}`,
                         method: 'DELETE',
                         data: {
                             'id': id,
@@ -148,7 +133,7 @@
                         },
                         success: function(res, data) {
                             if (res.status = true) {
-                                swal("Sukses", "Voucher Berhasil dihapus", "success");
+                                swal("Sukses", "Berhasil dihapus", "success");
                                 window.setTimeout(function() {
                                     window.location.reload();
                                 }, 1000);

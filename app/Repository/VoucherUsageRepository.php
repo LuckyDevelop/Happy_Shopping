@@ -12,7 +12,11 @@ class VoucherUsageRepository
     }
 
     function getDataWithSearch($n, $search) {
-        $data = VoucherUsageModel::where('code', 'LIKE', "%$search%");
+        $data = VoucherUsageModel::whereHas('Voucher', function($voucher) use($search) {
+            $voucher->where('code', 'LIKE', "%$search%");
+        })->orWhereHas('Transaction', function($transaction) use($search) {
+            $transaction->where('transaction_id', 'LIKE', "%$search%");
+        });
         return $data->paginate($n);
     }
 

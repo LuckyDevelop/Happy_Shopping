@@ -26,12 +26,12 @@
                 <div class="col-sm-2">
                     <p class="m-0">Start Date</p>
                     <input type="date" onchange="searchData()" style="width: 200px" name="start_date" id="start_date"
-                        value="{{ Carbon::now()->format('Y-m-d') }}" class="form-control  w-100">
+                        value="" class="form-control  w-100">
                 </div>
                 <div class="col-sm-2">
                     <p class="m-0">End Date</p>
                     <input type="date" onchange="searchData()" style="width: 200px" name="end_date" id="end_date"
-                        value="{{ Carbon::now()->format('Y-m-d') }}" class="form-control w-100">
+                        value="" class="form-control w-100">
                 </div>
                 <div class="col-sm-2">
                     <p class="m-0">Status</p>

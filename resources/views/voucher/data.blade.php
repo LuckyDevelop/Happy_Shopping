@@ -58,8 +58,12 @@
                     <td>
                         @if ($v->status == 1)
                             Aktif
-                        @else
+                        @elseif($v->status == 2)
                             Kadaluarsa
+                        @elseif($v->status == 0)
+                            Tidak Aktif
+                        @elseif($v->status == 3)
+                            Terpakai
                         @endif
                     </td>
                     <td>

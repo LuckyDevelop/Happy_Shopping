@@ -43,73 +43,133 @@
                         <div class="col-sm">
                             <h4 class="font-weight-bold">Detail Produk</h4>
                             <div class="form-group">
-                                <label id="name" class="font-weight-bold">Nama Produk <span
-                                        class="text-danger">*</span></label>
+                                <label id="name" class="font-weight-bold">Nama Produk</label>
                                 <select onchange="" class="form-control select2-name" style="width: 100%"
                                     id="product" name="product">
                                 </select>
+                                <input type="hidden" id="product_name" name="product_name">
                             </div>
 
                             <div class="form-group">
-                                <h6 class="font-weight-bold mt-3">Harga Satuan Produk <span class="text-danger">*</span>
+                                <h6 class="font-weight-bold mt-3">Harga Produk
                                 </h6>
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" id="price"
                                         name="price" placeholder="Pilih Produk Terlebih Dahulu" readonly>
                                 </div>
+                                <input type="hidden" id="purchase_price" name="purchase_price" value="0">
                             </div>
 
                             <div class="form-group">
-                                <h6 class="font-weight-bold mt-3">Jumlah Produk <span class="text-danger">*</span></h6>
+                                <h6 class="font-weight-bold mt-3">Jumlah Produk</h6>
                                 <div class="form-group">
-                                    <input type="text" onkeyup="setSubTotal()" class="form-control form-control-user"
-                                        id="qty" name="qty" value="" placeholder="Masukkan Jumlah Produk">
+                                    <input type="text" class="form-control form-control-user" id="qty"
+                                        name="qty" value="" placeholder="Masukkan Jumlah Produk">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm">
-                                    <label id="name" class="font-weight-bold">Voucher</label>
-                                    <select onchange="" class="form-control select2-voucher" style="width: 100%"
-                                        id="voucher" name="voucher">
-                                    </select>
-                                    <input type="hidden" id="type" value="0">
-                                    <input type="hidden" id="disc_value" value="0">
-                                </div>
-                                <div class="col-sm-3 mt-4">
-                                    <a href="javascript:void(0)" class="btn btn-outline-primary form-control" id="apply"
-                                        onclick="setVoucher()">Apply</a>
-                                </div>
-                                <div class="col-sm-3 mt-4">
-                                    <a href="javascript:void(0)" class="btn btn-outline-danger form-control" id="delete"
-                                        onclick="deleteVoucher()">Delete</a>
-                                </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary" onclick="getProduct()">Tambah
+                                    Produk</button>
                             </div>
                         </div>
                     </div>
                     <!-- baris 2 -->
                     <div class="row">
-                        <h5 class="font-weight-bold">Detail Transaksi</h5>
-                        <div id="data-transaksi" style="height: 90px">
-                            <table>
-                                <tr>
-                                    <td>Sub Total</td>
-                                    <td>: Rp</td>
-                                    <td id="subtotal">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Potongan/Diskon</td>
-                                    <td>: Rp</td>
-                                    <td id="diskon">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Total</td>
-                                    <td>: Rp</td>
-                                    <td id="total">
-                                    </td>
-                                </tr>
-                            </table>
+                        <h5 class="font-weight-bold">Detail Transaksi <span class="text-danger">*</span></h5>
+                        <div class="row mb-3">
+                            <div class="table-responsive-md" style="width: 100%">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Produk</th>
+                                            <th>Jumlah</th>
+                                            <th>Harga</th>
+                                            <th>Total</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productList">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <h5 id="name" class="font-weight-bold">Voucher</h5>
+                                <select onchange="" class="form-control select2-voucher" style="width: 100%"
+                                    id="voucher" name="voucher">
+                                </select>
+                                <input type="hidden" id="type" value="0">
+                                <input type="hidden" id="disc_value" value="0">
+                            </div>
+                            <div class="col-sm-2 mt-4">
+                                <a href="javascript:void(0)" class="btn btn-outline-primary form-control"
+                                    id="apply" onclick="setVoucher()">Apply</a>
+                            </div>
+                            <div class="col-sm-2 mt-4">
+                                <a href="javascript:void(0)" class="btn btn-outline-danger form-control"
+                                    id="delete" onclick="deleteVoucher()">Delete</a>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div id="data-transaksi" class="col-sm" style="height: 100%">
+                                <table>
+                                    <tr>
+                                        <td>Sub Total</td>
+                                        <td>: Rp</td>
+                                        <td>
+                                            <input type="text" class="form-control" name="subtotal"
+                                                value="0" id="subtotal" readonly>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Potongan/Diskon</td>
+                                        <td>: Rp</td>
+                                        <td>
+                                            <input type="text" class="form-control" name="discount"
+                                                value="0" id="diskon" readonly>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>: Rp</td>
+                                        <td>
+                                            <input type="text" class="form-control" name="totalall"
+                                                value="0" id="total" readonly>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <input type="hidden" id="purchase" name="purchase" value="0">
+                            </div>
+                            <div class="col-sm mb-3">
+                                <h5 class="font-weight-bold">Metode Pembayaran <span class="text-danger">*</span></h5>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="payment"
+                                        id="flexRadioDefault1" checked value="Cash">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        <i class="fas fa-fw fa-money-bill-wave"></i> Cash
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="payment"
+                                        id="flexRadioDefault2" value="Kartu Debit/Kredit">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <i class="fas fa-fw fa-credit-card"></i> Kartu Debit/Kredit
+                                    </label>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-sm">
+                                        <h5 class="font-weight-bold">Status</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="paid"
+                                                value="2" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Done/Paid
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <h6 class="font-weight-bold">Permintaan Tambahan</h6>
@@ -121,94 +181,104 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Tambah</button>
                 </div>
-                <input type="hidden" name="sub_total" id="sub" value="0">
-                <input type="hidden" name="discount" id="disc" value="0">
-                <input type="hidden" name="total" id="tot" value="0">
             </form>
         </div>
     </div>
 </div>
 <script>
-    function deleteVoucher() {
-        var sub = $('#sub').val();
-        $('#diskon').html('');
-        $('#disc').val(0);
-        $('#tot').val(sub);
-        var sum = $('#sub').val();
-        var output = sum.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-        $('#total').html(output);
-    }
-
-    function setVoucher() {
-        if ($('#type').val() == 1) {
-            changeFormat();
-            var diskon = $('#disc_value').val();
-            $('#diskon').html(diskon);
-
-            var diskon = diskon.replaceAll('.', '');
-            $('#disc').val(diskon);
-
-            var sum = $('#sub').val() - diskon;
-            $('#tot').val(sum);
-            var output = sum.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-            $('#total').html(output);
-        } else {
-            var diskon = $('#disc_value').val();
-            var totdiskon = $('#sub').val() * diskon;
-            var output = totdiskon.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-            $('#diskon').html(output);
-
-            $('#disc').val(totdiskon);
-
-            var sum = $('#sub').val() - totdiskon;
-            $('#tot').val(sum);
-            var output = sum.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-            $('#total').html(output);
-        }
-        $("#voucher option[value!='']").remove();
-    }
-
-    $(document).ready(function() {
-        $('#voucher').attr('disabled', true);
-    });
-
-    function setSubTotal() {
-        if ($('#qty').val() != null || $('#qty').val() != 0) {
-            $('#voucher').attr('disabled', false);
-        }
-        if ($('#qty').val() == 0) {
-            $('#voucher').attr('disabled', true);
-        }
+    function getProduct() {
         $("#price").val(function(index, value) {
             return value
                 .replace(/^0+/, '')
                 .replace(/\D/g, "")
                 .replace(/\B(?=(\d{3})+(?!\d))/g, "");
         });
-        var price = $('#price').val();
-        var qty = $('#qty').val();
-        var disc = $('#disc').val();
-
-        var sum = price * qty - disc;
-        var output = sum.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-
-        $('#subtotal').html(output);
-        $('#sub').val(sum);
-        var sumtot = sum - $('#disc').val();
-        var output = sumtot.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-        $('#total').html(output);
-
-        $('#tot').val(sumtot);
-        $("#price").val(function(index, value) {
+        $('#qty').val(function(index, value) {
             return value
                 .replace(/^0+/, '')
                 .replace(/\D/g, "")
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                .replace(/\B(?=(\d{3})+(?!\d))/g, "");
         });
+        let formData = $('#formAdd').serialize();
+        $.ajax({
+            url: `/transaction/insert_product`,
+            method: 'GET',
+            data: formData,
+            success: function(data) {
+                $('#productList').append(data);
+                $("#product option[value!='']").remove();
+                $('#product_name').val("");
+                $('#price').val("");
+                $('#qty').val("");
+                $('.invalid-feedback').remove();
+                getSubTotal();
+            },
+            error: function(error) {
+                $("#price").val(function(index, value) {
+                    return value
+                        .replace(/^0+/, '')
+                        .replace(/\D/g, "")
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                });
+                if (error.status != 422)
+                    toastr['error']("Something went wrong");
+                showError(error.responseJSON.errors, "#formAdd");
+                $.each(error.responseJSON.errors, function(idx, item) {
+                    toastr['error'](idx = item);
+                });
+            }
+        })
+    }
+
+    function getSubTotal() {
+        var sum = 0;
+        var pur = 0;
+        unsetFormat();
+        var diskon = $('#diskon').val();
+        $("input[id*='total_price']").each(function() {
+            sum += +$(this).val();
+        });
+        $("input[id*='purchase_price_product']").each(function() {
+            pur += +$(this).val();
+        });
+        var total = sum - diskon;
+        $('#total').val(total);
+        $('#subtotal').val(sum);
+        $('#purchase').val(pur);
+        setFormat();
+    }
+
+    function removeProduct(el) {
+        let elemen = el.parentElement.parentElement;
+        elemen.remove();
+        getSubTotal();
+    }
+
+    function setVoucher() {
+        if ($('#type').val() == 1) {
+            var diskon = $('#disc_value').val();
+            $('#diskon').val(diskon);
+
+        } else {
+            unsetFormat();
+            var diskon = $('#disc_value').val();
+            var subtotal = $('#subtotal').val();
+            var disc = (diskon * subtotal) / 100;
+            $('#diskon').val(disc);
+        }
+        getSubTotal();
+    }
+
+    function deleteVoucher() {
+        $('#diskon').val(0);
+        $('#disc').val(0);
+        $("#voucher option[value!='']").remove();
+        getSubTotal();
     }
 
     $(('#formAdd')).submit(function(e) {
-        // $(".submit").prop('disabled', true);
+        $(".submit").prop('disabled', true);
+        unsetFormat();
         e.preventDefault();
         $.ajax({
             url: "{{ route('transaction_add_post') }}",
@@ -216,12 +286,12 @@
             data: $('#formAdd').serialize(),
             success: function(res) {
                 toastr['success']("Produk Berhasil ditambahkan!");
-                // window.setTimeout(function() {
-                //     window.location.reload();
-                // }, 1000);
+                window.setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
             },
             error: function(res) {
-                // $(".submit").prop('disabled', false);
+                $(".submit").prop('disabled', false);
                 if (res.status != 422)
                     toastr['error']("Something went wrong");
                 showError(res.responseJSON.errors, "#formAdd");
@@ -233,7 +303,6 @@
         return false;
     });
     $('.select2-name').select2({
-        // dropdownParent: $('#addModal');
         ajax: {
             url: "{{ url('/product/auto') }}",
             dataType: 'json',
@@ -243,7 +312,7 @@
                 };
             }
         },
-        placeholder: 'Cari Kategori Produk',
+        placeholder: 'Cari Nama Produk',
         templateResult: formatRepo,
         templateSelection: formatRepoSelection
     });
@@ -258,7 +327,9 @@
     }
 
     function formatRepoSelection(repo) {
+        $('#product_name').val(repo.name);
         $('#price').val(repo.price);
+        $('#purchase_price').val(repo.purchase_price);
         if (repo.name != undefined) {
             return repo.name;
         } else {
@@ -266,8 +337,16 @@
         }
     }
 
+    $('#qty').keyup(function(e) {
+        $(this).val(function(index, value) {
+            return value
+                .replace(/^0+/, '')
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        });
+    });
+
     $('.select2-voucher').select2({
-        // dropdownParent: $('#addModal');
         ajax: {
             url: "{{ url('/voucher/auto') }}",
             dataType: 'json',
@@ -312,8 +391,20 @@
         }
     }
 
-    function changeFormat() {
-        $("#disc_value").val(function(index, value) {
+    function setFormat() {
+        $("#subtotal").val(function(index, value) {
+            return value
+                .replace(/^0+/, '')
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        });
+        $("#diskon").val(function(index, value) {
+            return value
+                .replace(/^0+/, '')
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        });
+        $("#total").val(function(index, value) {
             return value
                 .replace(/^0+/, '')
                 .replace(/\D/g, "")
@@ -321,8 +412,26 @@
         });
     }
 
-    function unchangeFormat() {
-        $("#disc_value").val(function(index, value) {
+    function unsetFormat() {
+        $("#subtotal").val(function(index, value) {
+            return value
+                .replace(/^0+/, '')
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, "");
+        });
+        $("#diskon").val(function(index, value) {
+            return value
+                .replace(/^0+/, '')
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, "");
+        });
+        $("#total").val(function(index, value) {
+            return value
+                .replace(/^0+/, '')
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, "");
+        });
+        $("#totalall").val(function(index, value) {
             return value
                 .replace(/^0+/, '')
                 .replace(/\D/g, "")

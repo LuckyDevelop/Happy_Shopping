@@ -18,9 +18,17 @@ class ProductController extends Controller
 
     function view()
     {
-        $data['product'] = $this->product->getData();
-        $content = view('product.index', $data);
+        $content = view('product.view');
         return view('main', ['content' => $content]);
+    }
+
+    function data() {
+        if (request('search') == null || request('search') == '') {
+            $data['product'] = $this->product->getData(10, request('status'));
+        } else {
+            $data['product'] = $this->product->getDataWithSearch(10, request('status'), request('search'));
+        }
+        return view('product.data', $data);
     }
 
     function auto(Request $request)
@@ -33,6 +41,7 @@ class ProductController extends Controller
             $temp->id = $value->id;
             $temp->name = $value->name;
             $temp->price = number_format($value->price,0,'.','.');
+            $temp->purchase_price = $value->purchase_price;
             $prod[] = $temp;
         }
 

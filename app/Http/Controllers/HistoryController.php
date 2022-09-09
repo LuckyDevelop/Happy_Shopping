@@ -10,14 +10,7 @@ class HistoryController extends Controller
 {
     function __construct()
     {
-        $this->transaction = new HistoryRepository;
         $this->usage = new VoucherUsageRepository;
-    }
-
-    function viewTransaction()
-    {
-        $content = view('history.transaction.view');
-        return view('main', ['content' => $content]);
     }
 
     function viewUsage()
@@ -33,10 +26,5 @@ class HistoryController extends Controller
             $data['usage'] = $this->usage->getDataWithSearch(10, request('search'));
         }
         return view('history.voucher.data', $data);
-    }
-
-    function dataTransaction() {
-            $data['trasaction'] = $this->transaction->getData(10);
-        return view('history.transaction.data', $data);
     }
 }

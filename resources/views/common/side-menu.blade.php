@@ -51,7 +51,6 @@
         <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Riwayat :</h6>
-                <a class="collapse-item" href="{{ route('transaction-detail') }}">Transaksi</a>
                 <a class="collapse-item" href="{{ route('voucher-usage') }}">Transaksi Voucher</a>
             </div>
         </div>

@@ -44,6 +44,7 @@ Route::namespace('admin')->middleware('auth')->group(function(){
 
     Route::prefix('/product')->group(function () {
         Route::get('/', [ProductController::class, 'view'])->name('product');
+        Route::get('/data', [ProductController::class, 'data'])->name('product_data');
         Route::get('/edit/{id}', [ProductController::class, 'editData'])->name('product_edit');
         Route::get('/auto', [ProductController::class, 'auto'])->name('product_auto');
         Route::post('/add', [ProductController::class, 'addData'])->name('product_add_post');
@@ -62,14 +63,18 @@ Route::namespace('admin')->middleware('auth')->group(function(){
 
     Route::prefix('/transaction')->group(function () {
         Route::get('/', [TransactionController::class, 'view'])->name('transaction');
+        Route::get('/insert_product', [TransactionController::class, 'productData'])->name('transaction_view');
+        Route::get('/data', [TransactionController::class, 'data'])->name('transaction_data');
+        Route::get('/edit/{id}', [TransactionController::class, 'editData'])->name('transaction_edit');
         Route::post('/add', [TransactionController::class, 'addData'])->name('transaction_add_post');
+        Route::patch('/edit/{id}', [TransactionController::class, 'editPatch'])->name('transaction_edit_patch');
     });
 
     Route::prefix('/history')->group(function () {
-        Route::get('/', [HistoryController::class, 'viewTransaction'])->name('transaction-detail');
-        Route::get('/data', [HistoryController::class, 'dataTransaction'])->name('transaction-detail_data');
+        // Route::get('/', [HistoryController::class, 'viewTransaction'])->name('transaction-detail');
+        // Route::get('/data', [HistoryController::class, 'dataTransaction'])->name('transaction-detail_data');
         Route::get('/usage', [HistoryController::class, 'viewUsage'])->name('voucher-usage');
-        Route::get('/data/usage', [HistoryController::class, 'dataUsage'])->name('voucher_data_usage');
+        Route::get('/usage/data', [HistoryController::class, 'dataUsage'])->name('voucher_data_usage');
     });
 
     Route::prefix('/voucher')->group(function () {
