@@ -15,6 +15,12 @@ class ProductController extends Controller
         $this->product = new ProductRepository;
     }
 
+    function showData($id)
+    {
+        $data['product'] = $this->product->getSingleData($id);
+        $content = view('product.show', $data);
+        return view('main', ['content' => $content]);
+    }
 
     function view()
     {

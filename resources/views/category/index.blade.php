@@ -37,6 +37,7 @@
                                 @endif
                             </td>
                             <td>
+                                <a href="{{ route('category_show', $c->id) }}"><i class="fas fa-fw fa-eye"></i></a>
                                 <a href="javascript:void(0)" onclick="Edit({{ $c->id }})"><i
                                         class="fas fa-fw fa-edit"></i></a>
                                 <a href="javascript:void(0)" onclick="deleteData({{ $c->id }})"><i

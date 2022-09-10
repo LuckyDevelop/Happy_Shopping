@@ -45,6 +45,7 @@ Route::namespace('admin')->middleware('auth')->group(function(){
     Route::prefix('/product')->group(function () {
         Route::get('/', [ProductController::class, 'view'])->name('product');
         Route::get('/data', [ProductController::class, 'data'])->name('product_data');
+        Route::get('/show/{id}', [ProductController::class, 'showData'])->name('product_show');
         Route::get('/edit/{id}', [ProductController::class, 'editData'])->name('product_edit');
         Route::get('/auto', [ProductController::class, 'auto'])->name('product_auto');
         Route::post('/add', [ProductController::class, 'addData'])->name('product_add_post');
@@ -54,6 +55,7 @@ Route::namespace('admin')->middleware('auth')->group(function(){
 
     Route::prefix('/product-category')->group(function () {
         Route::get('/', [CategoryController::class, 'view'])->name('category');
+        Route::get('/show/{id}', [CategoryController::class, 'showData'])->name('category_show');
         Route::get('/edit/{id}', [CategoryController::class, 'editData'])->name('category_edit');
         Route::get('/auto', [CategoryController::class, 'auto'])->name('auto');
         Route::post('/add', [CategoryController::class, 'addData'])->name('category_add_post');
@@ -80,6 +82,7 @@ Route::namespace('admin')->middleware('auth')->group(function(){
 
     Route::prefix('/voucher')->group(function () {
         Route::get('/', [VoucherController::class, 'view'])->name('voucher');
+        Route::get('/show/{id}', [VoucherController::class, 'showData'])->name('voucher_show');
         Route::get('/data', [VoucherController::class, 'data'])->name('voucher_data');
         Route::get('/auto', [VoucherController::class, 'auto'])->name('voucher_auto');
         Route::get('/edit/{id}', [VoucherController::class, 'editData'])->name('voucher_edit');

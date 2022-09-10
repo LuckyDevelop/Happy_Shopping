@@ -57,16 +57,21 @@
                     </td>
                     <td>
                         @if ($v->status == 1)
-                            Aktif
-                        @elseif($v->status == 2)
-                            Kadaluarsa
-                        @elseif($v->status == 0)
-                            Tidak Aktif
-                        @elseif($v->status == 3)
-                            Terpakai
+                            <label class="mb-1 px-3 bg-success text-white text-center"
+                                style="border-radius: 10pt">Aktif</label>
+                        @elseif ($v->status == 0)
+                            <label class="mb-1 px-3 bg-secondary text-white text-center"
+                                style="border-radius: 10pt">Tidak Aktif</label>
+                        @elseif ($v->status == 2)
+                            <label class="mb-1 px-3 bg-warning text-white text-center"
+                                style="border-radius: 10pt">Kadaluarsa</label>
+                        @elseif ($v->status == 3)
+                            <label class="mb-1 px-3 bg-info text-white text-center"
+                                style="border-radius: 10pt">Terpakai</label>
                         @endif
                     </td>
                     <td>
+                        <a href="{{ route('voucher_show', $v->id) }}"><i class="fas fa-fw fa-eye"></i></a>
                         <a href="javascript:void(0)" onclick="Edit({{ $v->id }})"><i
                                 class="fas fa-fw fa-edit"></i></a>
                         <a href="javascript:void(0)" onclick="deleteData({{ $v->id }})"><i

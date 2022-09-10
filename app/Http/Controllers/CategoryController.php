@@ -22,6 +22,13 @@ class CategoryController extends Controller
         return view('main', ['content' => $content]);
     }
 
+    function showData($id)
+    {
+        $data['category'] = $this->category->getSingleData($id);
+        $content = view('category.show', $data);
+        return view('main', ['content' => $content]);
+    }
+
     function auto(Request $request)
     {
         $val = $request->q;

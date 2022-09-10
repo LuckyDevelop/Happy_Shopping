@@ -21,6 +21,13 @@ class VoucherController extends Controller
         return view('main', ['content' => $content]);
     }
 
+    function showData($id)
+    {
+        $data['voucher'] = $this->voucher->getSingleData($id);
+        $content = view('voucher.show', $data);
+        return view('main', ['content' => $content]);
+    }
+
     function auto(Request $request)
     {
         $val = $request->q;

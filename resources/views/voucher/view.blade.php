@@ -37,7 +37,9 @@
                     <p class="m-0">Status</p>
                     <select onchange="searchData()" id="status" name="status" class="form-control">
                         <option value="1">Aktif</option>
-                        <option value="0">Arsip</option>
+                        <option value="0">Tidak Aktif</option>
+                        <option value="2">Kadaluarsa</option>
+                        <option value="3">Terpakai</option>
                     </select>
                 </div>
                 <div class="col-sm mt-4 text-right">

@@ -48,6 +48,7 @@
                         @endif
                     </td>
                     <td>
+                        <a href="{{ route('product_show', $p->id) }}"><i class="fas fa-fw fa-eye"></i></a>
                         <a href="{{ route('product_edit', $p->id) }}"><i class="fas fa-fw fa-edit"></i></a>
                         <a href="javascript:void(0)" onclick="deleteData({{ $p->id }})"><i
                                 class="fas f a-fw fa-trash"></i></a>
