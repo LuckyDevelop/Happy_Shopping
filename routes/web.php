@@ -66,6 +66,7 @@ Route::namespace('admin')->middleware('auth')->group(function(){
         Route::get('/insert_product', [TransactionController::class, 'productData'])->name('transaction_view');
         Route::get('/data', [TransactionController::class, 'data'])->name('transaction_data');
         Route::get('/edit/{id}', [TransactionController::class, 'editData'])->name('transaction_edit');
+        Route::get('/show/{id}', [TransactionController::class, 'showData'])->name('transaction_show');
         Route::post('/add', [TransactionController::class, 'addData'])->name('transaction_add_post');
         Route::patch('/edit/{id}', [TransactionController::class, 'editPatch'])->name('transaction_edit_patch');
     });

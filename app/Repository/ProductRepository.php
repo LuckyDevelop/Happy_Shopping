@@ -92,7 +92,7 @@ class ProductRepository
             'name' => request('product_name'),
             'product_category_id' => request('category'),
             'price' => request('price'),
-            'purchase_price' => request('price'),
+            'purchase_price' => request('purchase_price'),
             'short_description' => request('short_description'),
             'description' => request('description'),
             'status' => request('status'),

@@ -93,6 +93,7 @@
 <script>
     $(('#formAdd')).submit(function(e) {
         e.preventDefault();
+        unsetFormat();
         $.ajax({
             url: "{{ route('product_add_post') }}",
             type: "POST",
@@ -128,7 +129,8 @@
         },
         placeholder: 'Cari Kategori Produk',
         templateResult: formatRepo,
-        templateSelection: formatRepoSelection
+        templateSelection: formatRepoSelection,
+        dropdownParent: $("#addModal"),
     });
 
     function formatRepo(repo) {
@@ -146,5 +148,37 @@
         } else {
             return repo.text;
         }
+    }
+
+    $('#purchase_price').keyup(function(e) {
+        $(this).val(function(index, value) {
+            return value
+                .replace(/^0+/, '')
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        });
+    });
+    $('#price').keyup(function(e) {
+        $(this).val(function(index, value) {
+            return value
+                .replace(/^0+/, '')
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        });
+    });
+
+    function unsetFormat() {
+        $("#purchase_price").val(function(index, value) {
+            return value
+                .replace(/^0+/, '')
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, "");
+        });
+        $("#price").val(function(index, value) {
+            return value
+                .replace(/^0+/, '')
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, "");
+        });
     }
 </script>

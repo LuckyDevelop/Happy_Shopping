@@ -17,7 +17,7 @@
         <tbody>
             @if (count($transaction) == 0)
                 <tr>
-                    <td colspan="6" class="text-center">No Data</td>
+                    <td colspan="7" class="text-center">No Data</td>
                 </tr>
             @endif
             @foreach ($transaction as $t)
@@ -32,14 +32,18 @@
                     <td>{{ $t->payment_method }}</td>
                     <td>
                         @if ($t->status == 0)
-                            Cancelled
+                            <label class="mb-1 px-3 bg-marroon text-white text-center"
+                                style="border-radius: 10pt">Cancelled</label>
                         @elseif($t->status == 1)
-                            Pending
+                            <label class="mb-1 px-3 bg-warning text-white text-center"
+                                style="border-radius: 10pt">Pending</label>
                         @elseif($t->status == 2)
-                            Done/Paid
+                            <label class="mb-1 px-3 bg-success text-white text-center"
+                                style="border-radius: 10pt">Done/Paid</label>
                         @endif
                     </td>
                     <td>
+                        <a href="{{ route('transaction_show', [$t->id]) }}"><i class="fas fa-fw fa-eye"></i></a>
                         @if ($t->status == 1)
                             <a href="{{ route('transaction_edit', [$t->id]) }}"><i class="fas fa-fw fa-edit"></i></a>
                         @endif

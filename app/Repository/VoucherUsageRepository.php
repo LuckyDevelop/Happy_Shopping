@@ -37,6 +37,11 @@ class VoucherUsageRepository
         return $data;
     }
 
+    function getSingleDataTransaction($id) {
+        $data = VoucherUsageModel::where('transaction_id', $id)->get();
+        return $data;
+    }
+
     function editData() {
         VoucherUsageModel::find(request('id'))->update([
             'category' => request('category'),

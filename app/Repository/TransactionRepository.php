@@ -148,7 +148,7 @@ class TransactionRepository
 
         if (request('paid')) {
             $voucher = VoucherModel::find(request('voucher'));
-            dd($voucher);
+            // dd($voucher);
             $voucher->update([
                 'status' => 3,
             ]);

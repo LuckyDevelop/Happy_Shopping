@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\Repository\TransactionRepository;
 use App\Http\Requests\TransactionRequest;
 use App\Http\Requests\TransactionProductRequest;
+use App\Repository\VoucherRepository;
+use App\Repository\VoucherUsageRepository;
 
 class TransactionController extends Controller
 {
@@ -14,10 +16,18 @@ class TransactionController extends Controller
     function __construct()
     {
         $this->transaction = new TransactionRepository;
+        $this->voucher = new VoucherUsageRepository;
     }
     function view()
     {
         $content = view('transaction.view');
+        return view('main', ['content' => $content]);
+    }
+
+    function showData($id)
+    {
+        $data['transaction'] = $this->transaction->getSingleData($id);
+        $content = view('transaction.show', $data);
         return view('main', ['content' => $content]);
     }
 
@@ -50,6 +60,7 @@ class TransactionController extends Controller
 
     function editData(Request $request, $id)
     {
+        $data['voucher'] = $this->voucher->getSingleDataTransaction($id);
         $data['transaction'] = $this->transaction->getSingleData($id);
         $content = view('transaction.edit', $data);
         return view('main', ['content' => $content]);

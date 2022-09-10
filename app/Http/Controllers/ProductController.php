@@ -51,7 +51,8 @@ class ProductController extends Controller
     function editData(Request $request, $id)
     {
         $data['product'] = $this->product->getSingleData($id);
-        return view('product.modal.edit', $data);
+        $content = view('product.edit', $data);
+        return view('main', ['content' => $content]);
     }
 
     function addData(ProductRequest $request) {

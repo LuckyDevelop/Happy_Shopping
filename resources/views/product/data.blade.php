@@ -8,6 +8,7 @@
                 <th>Harga Jual</th>
                 <th>Harga Beli</th>
                 <th>Kriteria</th>
+                <th>Status</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -38,8 +39,16 @@
                         </ul>
                     </td>
                     <td>
-                        <a href="javascript:void(0)" onclick="Edit({{ $p->id }})"><i
-                                class="fas fa-fw fa-edit"></i></a>
+                        @if ($p->status == 1)
+                            <label class="mb-1 px-3 bg-success text-white text-center"
+                                style="border-radius: 10pt">Aktif</label>
+                        @else
+                            <label class="mb-1 px-3 bg-secondary text-white text-center"
+                                style="border-radius: 10pt">Tidak Aktif</label>
+                        @endif
+                    </td>
+                    <td>
+                        <a href="{{ route('product_edit', $p->id) }}"><i class="fas fa-fw fa-edit"></i></a>
                         <a href="javascript:void(0)" onclick="deleteData({{ $p->id }})"><i
                                 class="fas f a-fw fa-trash"></i></a>
                     </td>

@@ -1,6 +1,6 @@
 <div class="card mx-4">
     <div class="card-body">
-        <h3 class="card-title font-weight-bold ml-3">Tambah Transaksi</h3>
+        <h3 class="card-title font-weight-bold ml-3">Edit Transaksi</h3>
         <form id="formEdit">
             @csrf
             <div class="modal-body">
@@ -213,14 +213,37 @@
                     <textarea class="form-control" id="additional_request" name="additional_request" style="height: 100px">{{ $transaction->additional_request }}</textarea>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="text-left">
+                <a href="{{ route('transaction') }}" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-arrow-left"></i>
+                    </span>
+                    <span class="text">Kembali</span>
+                </a>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>
     </div>
 </div>
 <script>
+    $(document).ready(function(e) {
+        var option = new Option("{{ $voucher[0]->Voucher->code }}",
+            "{{ $voucher[0]->Voucher->id }}", true,
+            true);
+        $(".select2-voucher").append(option).trigger("change");
+
+        $(".select2-voucher").trigger({
+            type: "select2:select",
+            params: {
+                data: {
+                    id: "{{ $voucher[0]->Voucher->id }}",
+                    label: "{{ $voucher[0]->Voucher->code }}",
+                    is_init: true
+                }
+            }
+        });
+    })
+
     function getProduct() {
         $("#price").val(function(index, value) {
             return value
