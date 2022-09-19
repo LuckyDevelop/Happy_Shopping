@@ -11,4 +11,8 @@ class AdminsModel extends Authenticatable
     use HasFactory;
     protected $table = 'admins';
     protected $guarded = [];
+
+    function Role() {
+        return $this->belongsTo(RoleModel::class, 'roles_id', 'id');
+    }
 }

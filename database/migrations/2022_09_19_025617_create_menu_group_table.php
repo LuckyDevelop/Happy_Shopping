@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('menu_group', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username',45);
-            $table->string('password',250);
-            $table->string('remember_token',250)->nullable();
-            $table->timestamps();
+            $table->string('name', 100);
+            $table->string('icon', 100)->nullable();
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('menu_group_models');
     }
 };

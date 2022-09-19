@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('authorization_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username',45);
-            $table->string('password',250);
-            $table->string('remember_token',250)->nullable();
-            $table->timestamps();
+            $table->string('name', 45);
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('authorization_types');
     }
 };

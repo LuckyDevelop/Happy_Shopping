@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('username',45);
-            $table->string('password',250);
-            $table->string('remember_token',250)->nullable();
-            $table->timestamps();
+        Schema::table('admins', function (Blueprint $table) {
+            $table->unsignedInteger('roles_id');
+
+            $table->foreign('roles_id')->references('id')->on('roles');
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        //
     }
 };
