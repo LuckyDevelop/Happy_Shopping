@@ -10,6 +10,7 @@ class AuthorizationModel extends Model
     use HasFactory;
     protected $table = 'authorizations';
     protected $guarded = [];
+    public $timestamps = false;
 
     function Role() {
         return $this->belongsTo(RoleModel::class, 'roles_id', 'id');

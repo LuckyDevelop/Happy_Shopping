@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\VoucherController;
 
@@ -40,6 +43,32 @@ Route::prefix('/sign-up')->group(function() {
 Route::namespace('admin')->middleware('auth', 'otorisasi')->group(function(){
     Route::prefix('/dashboard')->group(function () {
         Route::get('/', [DashboardController::class, 'view'])->name('dashboard_view_index');
+    });
+
+    Route::prefix('/role')->group(function () {
+        Route::get('/', [RoleController::class , 'index'])->name('role_view_index');
+        Route::get('/data', [RoleController::class, 'data'])->name('role_view_data');
+        Route::get('/add', [RoleController::class, 'addView'])->name('role_add_data');
+        Route::get('/edit/{id}', [RoleController::class, 'editView'])->name('role_edit_data');
+        Route::post('/add', [RoleController::class, 'addData'])->name('role_add_post');
+        Route::patch('/edit', [RoleController::class, 'editPatch'])->name('role_edit_patch');
+    });
+
+    Route::prefix('/authorization')->group(function () {
+        Route::get('/', [AuthorizationController::class , 'index'])->name('authorization_view_index');
+        Route::get('/data/{id}', [AuthorizationController::class, 'data'])->name('authorization_view_data');
+        Route::post('/', [AuthorizationController::class, 'update'])->name('authorization_add');
+    });
+
+    Route::prefix('/account-list')->group(function () {
+        Route::get('/', [AdminController::class , 'index'])->name('account-list_view_index');
+        Route::get('/data', [AdminController::class, 'data'])->name('account-list_view_data');
+        Route::get('/add', [AdminController::class, 'addView'])->name('account-list_add_data');
+        Route::get('/edit/{id}', [AdminController::class, 'editView'])->name('account-list_edit_data');
+        Route::get('/change-password/{id}', [AdminController::class, 'changePassView'])->name('account-list_edit_changepassword');
+        Route::post('/add', [AdminController::class, 'addData'])->name('account-list_add_post');
+        Route::patch('/editpass/{id}', [AdminController::class, 'passwordChange'])->name('account-list_edit_patch_pass');
+        Route::patch('/edit', [AdminController::class, 'editPatch'])->name('account-list_edit_patch');
     });
 
     Route::prefix('/product')->group(function () {

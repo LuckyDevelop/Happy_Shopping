@@ -144,7 +144,7 @@
             success: function(res) {
                 toastr['success']("Produk Berhasil diubah!");
                 window.setTimeout(function() {
-                    window.location.href = "{{ route('product') }}";
+                    window.location.href = "{{ route('product_view_index') }}";
                 }, 1000);
             },
             error: function(res) {

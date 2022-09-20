@@ -139,6 +139,66 @@ class AuthorizationSeeder extends Seeder
                 'menus_id' => 6,
                 'roles_id' => 1
             ],
+            [
+                'authorization_types_id' => 1,
+                'menus_id' => 7,
+                'roles_id' => 1
+            ],
+            [
+                'authorization_types_id' => 2,
+                'menus_id' => 7,
+                'roles_id' => 1
+            ],
+            [
+                'authorization_types_id' => 3,
+                'menus_id' => 7,
+                'roles_id' => 1
+            ],
+            [
+                'authorization_types_id' => 4,
+                'menus_id' => 7,
+                'roles_id' => 1
+            ],
+            [
+                'authorization_types_id' => 1,
+                'menus_id' => 8,
+                'roles_id' => 1
+            ],
+            [
+                'authorization_types_id' => 2,
+                'menus_id' => 8,
+                'roles_id' => 1
+            ],
+            [
+                'authorization_types_id' => 3,
+                'menus_id' => 8,
+                'roles_id' => 1
+            ],
+            [
+                'authorization_types_id' => 4,
+                'menus_id' => 8,
+                'roles_id' => 1
+            ],
+            [
+                'authorization_types_id' => 1,
+                'menus_id' => 9,
+                'roles_id' => 1
+            ],
+            [
+                'authorization_types_id' => 2,
+                'menus_id' => 9,
+                'roles_id' => 1
+            ],
+            [
+                'authorization_types_id' => 3,
+                'menus_id' => 9,
+                'roles_id' => 1
+            ],
+            [
+                'authorization_types_id' => 4,
+                'menus_id' => 9,
+                'roles_id' => 1
+            ],
         ]);
     }
 }

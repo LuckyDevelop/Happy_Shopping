@@ -39,6 +39,11 @@ class MenuGroupSeeder extends Seeder
                 'name' => 'Riwayat Transaksi',
                 'icon' => 'fas fa-fw fa-clock',
             ],
+            [
+                'id' => '5',
+                'name' => 'User & Otorisasi',
+                'icon' => 'fas fa-fw fa-lock',
+            ],
         ]);
     }
 }

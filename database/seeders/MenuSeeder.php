@@ -61,6 +61,27 @@ class MenuSeeder extends Seeder
                 'order' => 1,
                 'icon' => null,
             ],
+            [
+                'name' => 'Peran',
+                'route' => 'role',
+                'menu_group_id' => 5,
+                'order' => 1,
+                'icon' => null,
+            ],
+            [
+                'name' => 'Otorisasi',
+                'route' => 'authorization',
+                'menu_group_id' => 5,
+                'order' => 1,
+                'icon' => null,
+            ],
+            [
+                'name' => 'Admin',
+                'route' => 'account-list',
+                'menu_group_id' => 5,
+                'order' => 1,
+                'icon' => null,
+            ],
          ]);
     }
 }

@@ -10,6 +10,7 @@ class RoleModel extends Model
     use HasFactory;
     protected $table = 'roles';
     protected $guarded = [];
+    public $timestamps = false;
 
     function Admin()
     {
